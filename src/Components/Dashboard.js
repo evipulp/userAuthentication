@@ -1,11 +1,12 @@
 import React from "react";
 import MenuBar from "./MenuBar";
-import SessionTracker from "../Charts/Components/SessionTracker";
+import Charts from "../Charts/Components/Charts";
+
 const Dashboard = () => {
   return (
     <div>
       <MenuBar />
-      <SessionTracker />
+      <Charts />
     </div>
   );
 };

@@ -1,122 +1,47 @@
-import React from "react";
-
-import * as am4core from "@amcharts/amcharts4/core";
+import * as React from "react";
+import Paper from "@material-ui/core/Paper";
 import {
-  XYChart,
-  CategoryAxis,
+  Chart,
+  BarSeries,
+  Title,
+  ArgumentAxis,
   ValueAxis,
-  LabelBullet,
-  ColumnSeries,
-} from "@amcharts/amcharts4/charts";
-import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-// Themes begin
-am4core.useTheme(am4themes_animated);
-// Themes end
+} from "@devexpress/dx-react-chart-material-ui";
 
-const SessionTracker = () => {
-  var chart = am4core.create("session", XYChart);
+import { Animation } from "@devexpress/dx-react-chart";
 
-  chart.data = [
-    {
-      country: "USA",
-      visits: 2025,
-    },
-    {
-      country: "China",
-      visits: 1882,
-    },
-    {
-      country: "Japan",
-      visits: 1809,
-    },
-    {
-      country: "Germany",
-      visits: 1322,
-    },
-    {
-      country: "UK",
-      visits: 1122,
-    },
-    {
-      country: "France",
-      visits: 1114,
-    },
-    {
-      country: "India",
-      visits: 984,
-    },
-    {
-      country: "Spain",
-      visits: 711,
-    },
-    {
-      country: "Netherlands",
-      visits: 665,
-    },
-    {
-      country: "Russia",
-      visits: 580,
-    },
-    {
-      country: "South Korea",
-      visits: 443,
-    },
-    {
-      country: "Canada",
-      visits: 441,
-    },
-  ];
+const data = [
+  { year: "1950", population: 2.525 },
+  { year: "1960", population: 3.018 },
+  { year: "1970", population: 3.682 },
+  { year: "1980", population: 4.44 },
+  { year: "1990", population: 5.31 },
+  { year: "2000", population: 6.127 },
+  { year: "2010", population: 6.93 },
+];
 
-  chart.padding(40, 40, 40, 40);
+export default class SessionTracker extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-  var categoryAxis = chart.xAxes.push(new CategoryAxis());
-  categoryAxis.renderer.grid.template.location = 0;
-  categoryAxis.dataFields.category = "country";
-  categoryAxis.renderer.minGridDistance = 60;
-  categoryAxis.renderer.inversed = true;
-  categoryAxis.renderer.grid.template.disabled = true;
+    this.state = {
+      data,
+    };
+  }
 
-  var valueAxis = chart.yAxes.push(new ValueAxis());
-  valueAxis.min = 0;
-  valueAxis.extraMax = 0.1;
-  //valueAxis.rangeChangeEasing = am4core.ease.linear;
-  //valueAxis.rangeChangeDuration = 1500;
+  render() {
+    const { data: chartData } = this.state;
 
-  var series = chart.series.push(new ColumnSeries());
-  series.dataFields.categoryX = "country";
-  series.dataFields.valueY = "visits";
-  series.tooltipText = "{valueY.value}";
-  series.columns.template.strokeOpacity = 0;
-  series.columns.template.column.cornerRadiusTopRight = 10;
-  series.columns.template.column.cornerRadiusTopLeft = 10;
-  //series.interpolationDuration = 1500;
-  //series.interpolationEasing = am4core.ease.linear;
-  var labelBullet = series.bullets.push(new LabelBullet());
-  labelBullet.label.verticalCenter = "bottom";
-  labelBullet.label.dy = -10;
-  labelBullet.label.text = "{values.valueY.workingValue.formatNumber('#.')}";
-
-  chart.zoomOutButton.disabled = true;
-
-  // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
-  series.columns.template.adapter.add("fill", function (fill, target) {
-    return chart.colors.getIndex(target.dataItem.index);
-  });
-
-  // setInterval(function () {
-  //   am4core.array.each(chart.data, function (item) {
-  //     item.visits += Math.round(Math.random() * 200 - 100);
-  //     item.visits = Math.abs(item.visits);
-  //   });
-  //   chart.invalidateRawData();
-  // }, 2000);
-
-  categoryAxis.sortBySeries = series;
-  return (
-    <>
-      <div style={{ height: "100%" }} id="session" />
-    </>
-  );
-};
-
-export default SessionTracker;
+    return (
+      <Paper>
+        <Chart data={chartData}>
+          <ArgumentAxis />
+          <ValueAxis max={7} />
+          <BarSeries valueField="population" argumentField="year" />
+          <Title text="World population" />
+          <Animation />
+        </Chart>
+      </Paper>
+    );
+  }
+}
