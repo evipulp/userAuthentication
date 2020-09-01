@@ -1,6 +1,6 @@
 import React from "react";
 import "./Login.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, withRouter } from "react-router-dom";
 import { useStateValue } from "../provider/StateProvider";
 import { auth } from "../firebase";
 
@@ -99,7 +99,7 @@ const Login = () => {
               type="email"
               placeholder="Email address..."
             />
-            <span className="error-msg-l">{errors.email}</span>
+            <span className="error-msg-l">{errors?.email}</span>
           </label>
           <label>
             Password
@@ -110,12 +110,12 @@ const Login = () => {
               type="password"
               placeholder="password..."
             />
-            <span className="error-msg-l">{errors.password}</span>
+            <span className="error-msg-l">{errors?.password}</span>
           </label>
           <button type="submit" className="signin_button">
             SIGN IN
           </button>
-          <div className="error-msg-l">{errors.invalid}</div>
+          <div className="error-msg-l">{errors?.invalid}</div>
         </form>
         <Link to="/forgot" style={{ textDecoration: "none", marginTop: "5px" }}>
           Forgot Password?
@@ -131,4 +131,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withRouter(Login);

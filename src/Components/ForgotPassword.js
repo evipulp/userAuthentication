@@ -1,6 +1,6 @@
 import React from "react";
 import "./RorgotPassword.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useStateValue } from "../provider/StateProvider";
 import { auth } from "../firebase";
 
@@ -103,8 +103,8 @@ const ForgotPassword = () => {
               onChange={handleChange}
               placeholder="Your email address..."
             />
-            <div className="error-msg-f">{errors.email}</div>
-            <div className="error-msg-f">{errors.notexist}</div>
+            <div className="error-msg-f">{errors?.email}</div>
+            <div className="error-msg-f">{errors?.notexist}</div>
           </label>
           <button className="reset_button">Reset Password</button>
         </form>

@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import "./Register.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, withRouter } from "react-router-dom";
 import { useStateValue } from "../provider/StateProvider";
 import { auth } from "../firebase";
 
@@ -143,7 +143,7 @@ const Register = () => {
               type="text"
               placeholder="Your name..."
             />
-            <span className="errorMsg">{errors.name}</span>
+            <span className="errorMsg">{errors?.name}</span>
           </label>
 
           <label>
@@ -155,7 +155,7 @@ const Register = () => {
               type="email"
               placeholder="Email address..."
             />
-            <div className="errorMsg">{errors.email}</div>
+            <div className="errorMsg">{errors?.email}</div>
           </label>
 
           <label>
@@ -167,7 +167,7 @@ const Register = () => {
               type="tel"
               placeholder="Contact number..."
             />
-            <div className="errorMsg">{errors.phone}</div>
+            <div className="errorMsg">{errors?.phone}</div>
           </label>
 
           <label>
@@ -178,7 +178,7 @@ const Register = () => {
               value={rawRegisterData.dob || ""}
               type="date"
             />
-            <div className="errorMsg">{errors.dob}</div>
+            <div className="errorMsg">{errors?.dob}</div>
           </label>
 
           <label>
@@ -190,7 +190,7 @@ const Register = () => {
               type="password"
               placeholder="password..."
             />
-            <div className="errorMsg">{errors.password}</div>
+            <div className="errorMsg">{errors?.password}</div>
           </label>
 
           <button type="submit" className="signup_button">
@@ -205,4 +205,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default withRouter(Register);
